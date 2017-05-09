@@ -56,7 +56,7 @@ REST GET from DynamoDB via Lambda
  * For __AWS Lambda__, click: __Select__
 * __Step 2__ is automatically skipped
 * __Step 3: Attach policy__
- * Select __AmazonDynamoDBReadOnlyAccess__ policiy
+ * Select both __AmazonDynamoDB*__ policies
 * Click: __Next Step__
 * Create a name for the role (like __lambda-db-delete__)
 * Click: __Create role__
@@ -141,7 +141,7 @@ To test:
 
 ```
 $ curl -i -X DELETE -H "Accept: applications/json" \
-  $AWS_HOST_MARCHIO_GET/test/marchio-get/mldb/110ec58a-a0f2-4ac4-8393-c866d813b8d1
+  $AWS_HOST_MARCHIO_DELETE/test/marchio-delete/mldb/110ec58a-a0f2-4ac4-8393-c866d813b8d1
 ```
 * The response should contain a 204 status code.
 

@@ -14,38 +14,6 @@
 ## marchio-lambda-delete
 Module
 
-
-* [marchio-lambda-delete](#module_marchio-lambda-delete)
-    * [.package()](#module_marchio-lambda-delete+package)
-    * [.health()](#module_marchio-lambda-delete+health)
-
-<a name="module_marchio-lambda-delete+package"></a>
-
-### marchio-lambda-delete.package()
-Returns the package name
-
-**Kind**: instance method of <code>[marchio-lambda-delete](#module_marchio-lambda-delete)</code>  
-<a name="module_marchio-lambda-delete+health"></a>
-
-### marchio-lambda-delete.health()
-Health check
-
-**Kind**: instance method of <code>[marchio-lambda-delete](#module_marchio-lambda-delete)</code>  
-**Example** *(Usage Example)*  
-```js
-                var factory = require("marchio-lambda-delete");
-             
-                factory.create({})
-                .then(function(obj) {
-                    return obj.health();
-                })
-                .then(function(result) {
-                    console.log("HEALTH: ", result);
-                })
-                .catch( function(err) { 
-                    console.error(err); 
-                });
-```
 <a name="module_marchio-lambda-delete-factory"></a>
 
 ## marchio-lambda-delete-factory
@@ -63,16 +31,40 @@ It takes one spec parameter that must be an object with named parameters
 | Param | Type | Description |
 | --- | --- | --- |
 | spec | <code>Object</code> | Named parameters object |
+| spec.event | <code>Object</code> | Lambda event |
+| spec.context | <code>Object</code> | Lambda context |
+| spec.callback | <code>function</code> | Lambda callback |
+| spec.model | <code>Object</code> | Table model |
 
 **Example** *(Usage example)*  
 ```js
-    var factory = require("marchio-lambda-delete");
- 
-    factory.create({})
-    .then(function(obj) {
-        return obj.health();
+// Lambda root file
+"use strict";
+
+var mlFactory = require('marcio-lambda-delete'); 
+
+exports.handler = function(event, context, callback) {
+
+    var model = {
+        name: 'mldb',   // must match DynamoDB table name
+        primary: 'eid', // primary key - cannot be reserved word (like uuid)
+        fields: {
+            eid:      { type: String },  // return eid / primary in GET results
+            email:    { type: String, required: true },
+            status:   { type: String, required: true, default: "NEW" },
+            // Password will be (fake) hashed by filter before being saved
+            password: { type: String, select: false },  // select: false, exclude from query results
+        }
+    };
+
+    mlFactory.create({ 
+        event: event, 
+        context: context,
+        callback: callback,
+        model: model
     })
-    .catch( function(err) { 
-        console.error(err); 
+    .catch(function(err) {
+        callback(err);
     });
+ };
 ```
