@@ -1,6 +1,6 @@
 marchio-lambda-delete
 ==
-REST GET from DynamoDB via Lambda
+REST DELETE from DynamoDB via Lambda
 --
 
 <p align="left">
