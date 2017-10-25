@@ -145,6 +145,15 @@ $ curl -i -X DELETE -H "Accept: applications/json" \
 ```
 * The response should contain a 204 status code.
 
+### Partition / Sort Tables
+
+For DynamoDB tables where you have a partition and a sort key append the sort value to the URL:
+
+```
+$ curl -i -X DELETE -H "Accept: applications/json" \
+  $AWS_HOST_MARCHIO_DELETE_SORT/test/marchio-delete/mldb-sort/110ec58a-a0f2-4ac4-8393-c866d813b8d1/record-sort-key
+```
+
 * * *
 
 ## Modules
@@ -196,9 +205,11 @@ exports.handler = function(event, context, callback) {
 
     var model = {
         name: 'mldb',   // must match DynamoDB table name
-        primary: 'eid', // primary key - cannot be reserved word (like uuid)
+        partition: 'eid', // primary partition key - cannot be reserved word (like uuid)
+        // sort: 'gid',  // primary sort key
         fields: {
-            eid:      { type: String },  // return eid / primary in GET results
+            eid:      { type: String },  // primary partition key
+            // gid:      { type: String },  // primary sort key           
             email:    { type: String, required: true },
             status:   { type: String, required: true, default: "NEW" },
             // Password will be (fake) hashed by filter before being saved
@@ -243,6 +254,11 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 * * *
 
 ## Version History
+
+#### Version 0.2.0
+
+* change model.primary to model.partition
+* add support for sort key
 
 #### Version 0.1.0 
 

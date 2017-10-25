@@ -9,8 +9,7 @@
 "use strict";
 
 const doc = require('dynamodb-doc'),
-    docClient = doc ? new doc.DynamoDB() : null,
-    path = '/:model/:id';  
+    docClient = doc ? new doc.DynamoDB() : null;  
 
 module.exports.create = ( spec ) => {
 
@@ -28,7 +27,8 @@ module.exports.create = ( spec ) => {
           res = adapter.response,
           env = adapter.env;
 
-    const primaryKey = model.primary,
+    const partition = model.partition || null,
+          sort = model.sort || null,
           jsonp = query.jsonp || false,
           cb = query.cb || 'callback';
 
@@ -62,18 +62,22 @@ module.exports.create = ( spec ) => {
         return;
     }
 
-    // TODO - check primaryKey against DynamoDB reserved words
-    if(!primaryKey) {
-        throw new Error('dp-delete: model.primary not defined.');
+    // TODO - check partition against DynamoDB reserved words
+    if(!partition) {
+        throw new Error('dp-delete: model.partition not defined.');
     }
 
     var _key = {};
-    const dbId = params.id;
+    const dbId = params.partition;
     if(!dbId) {
         return Promise.reject(404);
     }
 
-    _key[ primaryKey ] = dbId; 
+    _key[ partition ] = dbId; 
+
+    if( sort && params.sort ) {
+        _key[sort] = params.sort;
+    }
 
     var deleteObject = {
         "TableName": model.name,
@@ -91,7 +95,7 @@ module.exports.create = ( spec ) => {
             statusCode: 204,  
             headers: {
                 "Content-Type" : "application/json",
-                "Location": "/" + [ model.name, dbId ].join('/')
+                "Location": "/" + (sort ? [ model.name, dbId, _key[sort] ] : [ model.name, dbId ]).join('/')
             },
             body: {}
         };
