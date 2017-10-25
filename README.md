@@ -255,6 +255,10 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 
 ## Version History
 
+#### Version 0.2.1
+
+* updated example and doc
+
 #### Version 0.2.0
 
 * change model.primary to model.partition
