@@ -5,9 +5,9 @@
   "main": "lambda.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "put1": "curl -i -X PUT -H \"Content-Type: application/json\" -d '{\"email\":\"toast@test.com\",\"password\":\"$4xz62\",\"status\":\"TOAST\"}' $AWS_HOST_MARCHIO_PUT_SORT/test/marchio-put-sort/mldb-sort/doomed123/toast1",
-    "put2": "curl -i -X PUT -H \"Content-Type: application/json\" -d '{\"email\":\"toast@test.com\",\"password\":\"$4xz62\",\"status\":\"TOAST\"}' $AWS_HOST_MARCHIO_PUT_SORT/test/marchio-put-sort/mldb-sort/doomed123/nottoast",
-    "del1": "curl -i -X DELETE -H \"Accept: applications/json\" $AWS_HOST_MARCHIO_DELETE_SORT/test/marchio-delete-sort/mldb-sort/doomed123/toast1",
+    "put1": "curl -i -X PUT -H \"Content-Type: application/json\" -d '{\"email\":\"toast@test.com\",\"password\":\"$4xz62\",\"status\":\"TOAST\"}' $AWS_HOST_MARCHIO_PUT_SORT/test/marchio-put-sort/doomed123/toast1",
+    "put2": "curl -i -X PUT -H \"Content-Type: application/json\" -d '{\"email\":\"toast@test.com\",\"password\":\"$4xz62\",\"status\":\"NOT-TOAST\"}' $AWS_HOST_MARCHIO_PUT_SORT/test/marchio-put-sort/doomed123/nottoast",
+    "del1": "curl -i -X DELETE -H \"Accept: applications/json\" $AWS_HOST_MARCHIO_DELETE_SORT/test/marchio-delete-sort/doomed123/toast1",
     "demo": "npm run put1 && npm run put2 && npm run del1"
   },
   "author": "Mitch Allen",

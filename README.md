@@ -141,7 +141,7 @@ To test:
 
 ```
 $ curl -i -X DELETE -H "Accept: applications/json" \
-  $AWS_HOST_MARCHIO_DELETE/test/marchio-delete/mldb/110ec58a-a0f2-4ac4-8393-c866d813b8d1
+  $AWS_HOST_MARCHIO_DELETE/test/marchio-delete/110ec58a-a0f2-4ac4-8393-c866d813b8d1
 ```
 * The response should contain a 204 status code.
 
@@ -254,6 +254,10 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 * * *
 
 ## Version History
+
+#### Version 0.3.0
+
+* removed model/table name from url
 
 #### Version 0.2.1
 
