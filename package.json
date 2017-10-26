@@ -1,6 +1,6 @@
 {
   "name": "marchio-lambda-delete",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "REST DELETE from DynamoDB via Lambda",
   "main": "modules/index.js",
   "scripts": {
