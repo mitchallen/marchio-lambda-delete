@@ -255,6 +255,10 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 
 ## Version History
 
+#### Version 0.3.2
+
+* updated test cases
+
 #### Version 0.3.1
 
 * updated deploy example with latest package
